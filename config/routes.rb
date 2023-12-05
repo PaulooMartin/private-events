@@ -8,5 +8,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   resources :events
-  root "events#index"
+  root to: "events#index"
+
+  devise_for :users
 end
