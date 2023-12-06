@@ -6,4 +6,7 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: true, length: {in: 3..14},
             format: { without: /\W/, message: "is invalid. It should only contain letters, numbers, and underscores."  }
+
+  has_many :hosted_events, foreign_key: 'user_id', class_name: 'Event',
+            dependent: :destroy, inverse_of: 'creator'
 end
