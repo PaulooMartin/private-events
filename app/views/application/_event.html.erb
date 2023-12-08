@@ -1,0 +1,6 @@
+<hr>
+<div class = "event">
+    <h4 class = "title"><%= event.title %></h4>
+    <%= link_to(event.creator.username, user_path(event.creator.username), {class: 'creator'}) %>
+    <p class = "description"><%= event.description %></p>
+</div>

@@ -1,11 +1,8 @@
 <h1>Welcome to Private Events</h1>
 
-<% unless @events.empty? %>
-<h3>All Events</h3>
-    <% @events.each do |event| %>
-        <div class = "event">
-            <h4 class = "title"><%= event.title %></h4>
-            <p class = "description"><%= event.description %></p>
-        </div>
-    <% end %>
+<% if @events.empty? %>
+    <p>There are no events.</p>
+<% else %>
+    <h3>All Events</h3>
+    <%= render partial: 'application/event', collection: @events %>
 <% end %>
