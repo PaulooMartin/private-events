@@ -10,8 +10,18 @@
     <%= javascript_importmap_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if notice || alert %>
+      <div class="notice_alert_bar">
+        <% if notice %>
+          <p class="notice"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+          <p class="alert"><%= alert %></p>
+        <% end %>
+      </div>
+    <% end %>
+    
+    <%= render "global_header" %>
     <%= yield %>
   </body>
 </html>

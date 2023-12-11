@@ -1,0 +1,26 @@
+<div class="site-header">
+    <h1 class="site-title">PrivateEvents</h1>
+    <div class="visitor-options">
+        <% if user_signed_in? %>
+            <button class = "create-event">
+                <%= link_to "Create Event", new_event_path %>
+            </button>
+            <button class = "user-profile">
+                <%= link_to "Your profile", user_path(current_user.username) %>
+            </button>
+            <button class = "edit-profile">
+                <%= link_to "Edit Profile", edit_user_registration_path %>
+            </button>
+            <button class="logout">
+                <%= link_to "Logout", destroy_user_session_path, data: { "turbo-method": :delete } %>
+            </button>
+        <% else %>
+            <button class="register">
+                <%= link_to "Register", new_user_registration_path %>
+            </button>
+            <button class="login">
+                <%= link_to "Login", new_user_session_path %>
+            </button>
+        <% end %>
+    </div>
+</div>
