@@ -1,6 +1,6 @@
 <section class="event">
     <h4 class="title"><%= @event.title %></h4>
     <p class="description"><%= @event.description %></p>
-    <p class="creator">by: <%= link_to(@event.creator.username, user_path(@event.creator.username))%></p>
+    <p class="creator">Host: <%= link_to(@event.creator.username, user_path(@event.creator.username))%></p>
     <p class="datetime-and-location"><%= @event.datetime %>, at <%= @event.location %></p>
 </section>
