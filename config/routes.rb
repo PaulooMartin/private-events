@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :events
   devise_for :users
   get 'users/:username', to:'users#show', as: 'user'
+  post 'invitation', to: 'invitation#create', as: 'invitation'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

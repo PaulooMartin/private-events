@@ -4,3 +4,10 @@
     <p class="creator">Host: <%= link_to(@event.creator.username, user_path(@event.creator.username))%></p>
     <p class="datetime-and-location"><%= @event.datetime %>, at <%= @event.location %></p>
 </section>
+
+<% if user_signed_in? %>
+    <hr>
+    <section class="user_options">
+        <%= button_to("Join this event", invitation_path, params: { event: @event.id}) %>
+    </section>
+<% end %>
