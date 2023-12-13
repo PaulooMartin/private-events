@@ -9,4 +9,7 @@ class User < ApplicationRecord
 
   has_many :hosted_events, foreign_key: 'user_id', class_name: 'Event',
             dependent: :destroy, inverse_of: 'creator'
+
+  has_many :invitations, foreign_key: 'user_id', inverse_of: 'attendee'
+  has_many :attended_events, through: :invitations
 end
