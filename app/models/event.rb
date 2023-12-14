@@ -5,9 +5,15 @@ class Event < ApplicationRecord
   validates :title, presence: true, length: { maximum: 30 }
   validates :description, presence: true
   validates :location, presence: true
-  validates :datetime, comparison: { greater_than_or_equal_to: DateTime.now,
-            message: "must be greater than the current date and time"}
+  validates_presence_of :datetime
+  validate :future_date_given?
 
   has_many :invitations, foreign_key: 'event_id', inverse_of: 'attended_event'
   has_many :attendees, through: :invitations
+
+  def future_date_given?
+    unless datetime.future?
+      errors.add(:datetime, "must be greater than the current date and time")
+    end
+  end
 end
