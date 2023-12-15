@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
+  before_action :check_if_host, only: [:destroy]
 
   def index
     @events = Event.all
@@ -22,9 +23,21 @@ class EventsController < ApplicationController
     end
   end
 
+  def destroy
+    event = current_user.hosted_events.find(params[:event])
+    event.destroy
+
+    redirect_to user_path(current_user.username), notice: 'Your event is now deleted'
+  end
+
   private
 
   def event_params
     params.require(:event).permit(:title, :description, :location, :datetime)
+  end
+
+  def check_if_host
+    event = Event.find(params[:event])
+    current_user == event.creator
   end
 end

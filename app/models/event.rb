@@ -8,7 +8,7 @@ class Event < ApplicationRecord
   validates_presence_of :datetime
   validate :future_date_given?
 
-  has_many :invitations, foreign_key: 'event_id', inverse_of: 'attended_event'
+  has_many :invitations, dependent: :destroy, foreign_key: 'event_id', inverse_of: 'attended_event'
   has_many :attendees, through: :invitations
 
   scope :past, -> { where("datetime < ?", DateTime.current) }
