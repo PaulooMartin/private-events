@@ -1,6 +1,6 @@
 class InvitationController < ApplicationController
-  before_action :authenticate_user!, on: [:create]
-  before_action :invitation_exists?, on: [:create]
+  before_action :authenticate_user!
+  before_action :invitation_exists?, only: [:create]
 
   def create
     event = Event.find(params[:event])
@@ -11,6 +11,14 @@ class InvitationController < ApplicationController
     else
       redirect_to event, alert: 'Invitation failed'
     end
+  end
+
+  def destroy
+    event = Event.find(params[:event])
+    invitation = Invitation.find_by(event_id: event.id, user_id: current_user.id)
+    invitation.destroy
+
+    redirect_to event, notice: "Your attendance to this event is now cancelled"
   end
 
   private

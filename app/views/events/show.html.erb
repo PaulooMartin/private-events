@@ -1,6 +1,12 @@
 <% if user_signed_in? %>
     <section class="user_options">
-        <%= button_to("Join this event", invitation_path, params: { event: @event.id}) %>
+        
+        <% if @event.attendees.include?(current_user) %>
+            <%= button_to("Decline attendance", invitation_path, {method: :delete, params: { event: @event.id}} ) %>
+        <% else %>
+            <%= button_to("Join this event", invitation_path, params: { event: @event.id}) %>
+        <% end %>
+        
     </section>
     <hr>
 <% end %>
