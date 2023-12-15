@@ -11,6 +11,16 @@ class Event < ApplicationRecord
   has_many :invitations, foreign_key: 'event_id', inverse_of: 'attended_event'
   has_many :attendees, through: :invitations
 
+  def self.past
+    where("datetime < ?", DateTime.current)
+  end
+
+  def self.future
+    where("datetime > ?", DateTime.current)
+  end
+
+  private
+
   def future_date_given?
     unless datetime.future?
       errors.add(:datetime, "must be greater than the current date and time")

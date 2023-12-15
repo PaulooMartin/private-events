@@ -1,6 +1,10 @@
 <% if @events.empty? %>
     <p>There are no events.</p>
 <% else %>
-    <h3>All Events</h3>
-    <%= render partial: 'application/event', collection: @events %>
+<%# This works because @events is of class Event::ActiveRecord_Relation %>
+    <h3>All future events</h3>
+    <%= render partial: 'application/event', collection: @events.future %>
+
+    <h3>All past events</h3>
+    <%= render partial: 'application/event', collection: @events.past %>
 <% end %>
