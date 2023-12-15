@@ -1,8 +1,10 @@
 <%# I am not sure if this belongs here or not, I reckon it doesn't. %>
 <% username = @user.username %>
 <% hosted_events = @user.hosted_events %>
-<% future_events = @user.attended_events.where("datetime > ?", DateTime.current) %>
-<% past_events = @user.attended_events.where("datetime < ?", DateTime.current) %>
+<%# Although @user.attended_events is of class Event::ActiveRecord_Associations_CollectionProxy %>
+<%# Event::ActiveRecord_Associations_CollectionProxy inherits from Relation, which allows me to call the scopes %>
+<% future_events = @user.attended_events.future %>
+<% past_events = @user.attended_events.past %>
 
 <h1><%= username %>'s profile</h1>
 
