@@ -1,20 +1,36 @@
-<h1><%= @user.username %>'s profile</h1>
+<%# I am not sure if this belongs here or not, I reckon it doesn't. %>
+<% username = @user.username %>
+<% hosted_events = @user.hosted_events %>
+<% future_events = @user.attended_events.where("datetime > ?", DateTime.current) %>
+<% past_events = @user.attended_events.where("datetime < ?", DateTime.current) %>
+
+<h1><%= username %>'s profile</h1>
 
 <section class= "hosted-events">
     <h2>Hosted events</h2>
-    <% if @user.hosted_events.empty? %>
-        <p><%= @user.username %> does not have any hosted events.</p>
+    <% if hosted_events.empty? %>
+        <p><%= username %> does not have any hosted events.</p>
     <% else %>
-        <%= render partial:'application/event', collection: @user.hosted_events %>
+        <%= render partial:'application/event', collection: hosted_events %>
     <% end %>
 </section>
 
-<section class= "attended-events">
-    <h2>Attended events</h2>
-    <% if @user.attended_events.empty? %>
-        <p><%= @user.username %> does not have any attended events.</p>
+<section class= "future-attended-events">
+    <h2>Events to attend</h2>
+    <% if future_events.empty? %>
+        <p><%= username %> does not have any events to attend.</p>
     <% else %>
-        <%= render partial:'application/event', collection: @user.attended_events %>
+        <%= render partial:'application/event', collection: future_events %>
+    <% end %>
+</section>
+
+<section class="past-attended-events">
+
+    <h2>Attended events</h2>
+    <% if past_events.empty? %>
+        <p><%= username %> did not attend any event in the past.</p>
+    <% else %>
+        <%= render partial:'application/event', collection: past_events %>
     <% end %>
 </section>
 
