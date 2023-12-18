@@ -38,6 +38,6 @@ class EventsController < ApplicationController
 
   def check_if_host
     event = Event.find(params[:event])
-    current_user == event.creator
+    redirect_to root_path, alert: 'You are not the owner of this event' unless (current_user == event.creator)
   end
 end
